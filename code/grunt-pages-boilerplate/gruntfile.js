@@ -3,6 +3,47 @@
 const sass = require('sass');
 const loadGruntTasks = require('load-grunt-tasks');
 const cwd = process.cwd();
+const data = {
+  menus: [
+    {
+      name: 'Home',
+      icon: 'aperture',
+      link: 'index.html'
+    },
+    {
+      name: 'Features',
+      link: 'features.html'
+    },
+    {
+      name: 'About',
+      link: 'about.html'
+    },
+    {
+      name: 'Contact',
+      link: '#',
+      children: [
+        {
+          name: 'Twitter',
+          link: 'https://twitter.com/w_zce'
+        },
+        {
+          name: 'About',
+          link: 'https://weibo.com/zceme'
+        },
+        {
+          name: 'divider'
+        },
+        {
+          name: 'About',
+          link: 'https://github.com/zce'
+        }
+      ]
+    }
+  ],
+  pkg: require('./package.json'),
+  date: new Date()
+}
+
 module.exports = grunt => {
   // 配置任务方法
   grunt.initConfig({
@@ -43,10 +84,26 @@ module.exports = grunt => {
         }
       }
     },
+    web_swig: {
+      options: {
+        swigOptions:{
+          cache: false
+        },
+        getData: data
+      },
+      main: {
+        files: [{
+          expand: true,
+          cwd: 'src',
+          src: ['*.html', '**/*.html'],
+          dest: 'dist'
+        }]
+      },
+    },
     htmlmin: { //压缩HTML代码
       options: {
-        removeComments: true,           // 去除注释信息 
-        collapseWhitespace: true,       // 去除空白字符  
+        removeComments: true,           // 去除注释信息
+        collapseWhitespace: true,       // 去除空白字符
         removeEmptyAttributes: true,    // 去除标签的空属性
         removeCommentsFromCDATA: true,  // 去除 CDATA 的注释信息
         removeRedundantAttributes: true // 去除标签的冗余属性
@@ -55,7 +112,7 @@ module.exports = grunt => {
       main: {
         files: [{
           expand: true,
-          cwd: 'src',
+          cwd: 'dist',
           src: ['*.html', '**/*.html'],
           dest: 'dist'
         }]
@@ -121,7 +178,7 @@ module.exports = grunt => {
   loadGruntTasks(grunt)
 
   // 自动化构建任务
-  grunt.registerTask('build', ['sass', 'babel', 'uglify', 'htmlmin', 'imagemin', 'copy'])
+  grunt.registerTask('build', ['sass', 'babel', 'uglify', 'web_swig', 'htmlmin', 'imagemin', 'copy'])
 
 
 }
