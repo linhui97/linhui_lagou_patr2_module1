@@ -53,7 +53,6 @@
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-sass": "^3.1.0",
-    "grunt-swigtemplates": "^0.1.2",
     "grunt-web-swig": "^0.3.1",
     "load-grunt-tasks": "^5.1.0",
     "sass": "^1.26.7"

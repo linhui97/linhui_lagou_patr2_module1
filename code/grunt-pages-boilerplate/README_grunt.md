@@ -8,4 +8,5 @@
 - grunt-contrib-uglify：压缩js文件
 - grunt-contrib-watch：实时监控文件变化、调用相应的任务重新执行
 - grunt-sass：将sass转换成css
+- grunt-web-swig：将HTML中的swig模板进行转换
 - load-grunt-tasks：加载grunt插件
